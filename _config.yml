@@ -1,7 +1,7 @@
-name: "Pianfan's blog"
-description: "翩帆的个人技术博客"
+name: "Pistil's blog"
+description: "记录我，以及我对世界的认识。"
 
-avatar: https://pianfan.github.io/images/avatar.png
+avatar: https://pianfan.github.io/images/profile.jpg
 favicon: https://pianfan.github.io/images/favicon.ico
 
 navigation:
@@ -18,14 +18,15 @@ excerpt_separator: <!-- more -->
 
 footer-links:
   zhihu: 
-  email: xiongyunhan@outlook.com
+  email: tianyi.chen@buaa.edu.cn
   facebook:
-  github: pianfan
-  rss: welcome!
+  github: https://github.com/PistilReaper
+  google_scholar: https://scholar.google.com/citations?hl=en&user=SCFxxLYAAAAJ 
+  rss: 
   twitter: 
   youtube:
 
-footer-text: Copyright (c) 2024-2025 Pianfan
+footer-text: Copyright (c) 2026 Tianyi Chen. All rights reserved.
 
 url: https://pianfan.github.io
 
