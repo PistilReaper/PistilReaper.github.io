@@ -6,40 +6,40 @@
 // 基础主题切换变量
 :root {
   // 浅色模式变量
-  --oc-gray-0: #f8f9fa;
-  --oc-gray-1: #f1f3f5;
-  --oc-gray-2: #e9ecef;
-  --oc-gray-3: #dee2e6;
-  --oc-gray-4: #ced4da;
-  --oc-gray-5: #adb5bd;
-  --oc-gray-6: #868e96;
-  --oc-gray-7: #495057;
-  --oc-gray-8: #343a40;
-  --oc-gray-9: #212529;
-  
-  --oc-blue-0: #e8f7ff;
-  --oc-blue-6: #228ae6;
-  --oc-blue-8: #1b6ec2;
-  --oc-indigo-9: #364fc7;
+  --oc-gray-0: #f7efe4;
+  --oc-gray-1: #f3e7da;
+  --oc-gray-2: #e6d6c7;
+  --oc-gray-3: #d8c2b0;
+  --oc-gray-4: #c8ab95;
+  --oc-gray-5: #b08d79;
+  --oc-gray-6: #886b5d;
+  --oc-gray-7: #6a5348;
+  --oc-gray-8: #45342e;
+  --oc-gray-9: #2c201c;
+
+  --oc-blue-0: #f4dfe4;
+  --oc-blue-6: #b36a7c;
+  --oc-blue-8: #8e5363;
+  --oc-indigo-9: #6f4454;
 }
 
 // 深色模式变量
 body.dark-mode {
-  --oc-gray-0: #212529;
-  --oc-gray-1: #343a40;
-  --oc-gray-2: #495057;
-  --oc-gray-3: #6c757d;
-  --oc-gray-4: #adb5bd;
-  --oc-gray-5: #ced4da;
-  --oc-gray-6: #dee2e6;
-  --oc-gray-7: #e9ecef;
-  --oc-gray-8: #f1f3f5;
-  --oc-gray-9: #f8f9fa;
-  
-  --oc-blue-0: #444d56;
-  --oc-blue-6: #80acff;
-  --oc-blue-8: #81a6ed;
-  --oc-indigo-9: #9775fa;
+  --oc-gray-0: #171312;
+  --oc-gray-1: #221d1b;
+  --oc-gray-2: #2d2624;
+  --oc-gray-3: #473d39;
+  --oc-gray-4: #685a53;
+  --oc-gray-5: #8d7c73;
+  --oc-gray-6: #c2b0a5;
+  --oc-gray-7: #ddcdc3;
+  --oc-gray-8: #f0e2d9;
+  --oc-gray-9: #fbf2ec;
+
+  --oc-blue-0: #3a2d31;
+  --oc-blue-6: #d59bab;
+  --oc-blue-8: #efbac7;
+  --oc-indigo-9: #c68ba0;
 }
 
 // Colors
@@ -59,7 +59,8 @@ $helveticaNeue: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $georgia: Georgia, serif;
 
 // Fonts
-$base-font: 'Noto Serif', 'PT Serif', source-han-serif-sc, 'Source Han Serif', 'Songti SC', serif;
+$brand-font: 'Noto Serif', 'PT Serif', source-han-serif-sc, 'Source Han Serif', 'Songti SC', serif;
+$base-font: 'Times New Roman', 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', 'Source Han Sans SC', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'DengXian', serif;
 $code-font: 'Menlo', 'Courier New', 'Monaco', monospace;
 
 // Font sizes

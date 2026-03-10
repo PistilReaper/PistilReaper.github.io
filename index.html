@@ -12,8 +12,8 @@ layout: default
       <p class="home-kicker">Tianyi Chen</p>
       <h1>把学习、科研与生活整理成一个长期更新的个人索引。</h1>
       <p class="home-lead">
-        你好，我是陈天翼，目前是一名机械专业博士生，也长期关注 AI 与数字工具如何进入真实工作流。
-        这个站点用于记录我的学习笔记、科研过程和生活切片。
+        你好，我是陈天逸，目前是一名机械专业博士生，探索如何用AI促进我们对科学的认知。
+        这个站点用于记录我的学习笔记、科研感悟和生活切片。
       </p>
       <p class="home-lead">
         如果你对文章内容有疑问，或发现文中存在错误，欢迎通过邮箱联系我。
@@ -46,7 +46,7 @@ layout: default
     <article class="channel-card channel-study">
       <p class="channel-code">01 / Study Notes</p>
       <h2>学习笔记</h2>
-      <p>记录课程、工具、代码实验和自学过程中值得反复回看的内容。</p>
+      <p>记录课程、软件、算法、代码实验和自学过程中值得反复回看的内容。</p>
       {% if study_posts and study_posts.size > 0 %}
         {% assign study_latest = study_posts | first %}
         <div class="channel-status">
@@ -54,7 +54,7 @@ layout: default
           <a href="{{ site.baseurl }}{{ study_latest.url }}">{{ study_latest.title }}</a>
         </div>
       {% else %}
-        <div class="channel-status empty">栏目准备中，后续文章会继续沿用 `_posts` 的写作方式。</div>
+        <div class="channel-status empty">栏目准备中。</div>
       {% endif %}
       <a class="channel-link" href="{{ site.baseurl }}/study/">进入栏目</a>
     </article>
@@ -70,7 +70,7 @@ layout: default
           <a href="{{ site.baseurl }}{{ research_latest.url }}">{{ research_latest.title }}</a>
         </div>
       {% else %}
-        <div class="channel-status empty">栏目准备中，适合放论文笔记、实验记录和研究反思。</div>
+        <div class="channel-status empty">栏目准备中。</div>
       {% endif %}
       <a class="channel-link" href="{{ site.baseurl }}/research/">进入栏目</a>
     </article>

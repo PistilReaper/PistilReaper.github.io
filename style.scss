@@ -25,8 +25,15 @@ body {
   color: $base-color;
   line-height: 1.7em;
   background-image:
-    radial-gradient(circle at top left, rgba(34, 138, 230, 0.08), transparent 28%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 249, 250, 0.92));
+    radial-gradient(circle at top left, rgba(179, 106, 124, 0.16), transparent 28%),
+    linear-gradient(180deg, rgba(250, 241, 233, 0.96), rgba(246, 235, 223, 0.96));
+}
+
+input,
+textarea,
+button,
+select {
+  font-family: $base-font;
 }
 
 .container {
@@ -340,7 +347,7 @@ img {
   -webkit-background-size: cover;
   background-size: cover;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 247, 250, 0.94)),
+    linear-gradient(180deg, rgba(250, 241, 233, 0.98), rgba(243, 228, 220, 0.96)),
     $background-color;
   height: 100%;
   top: 0;
@@ -402,7 +409,7 @@ img {
   margin: 0 auto;
   color: $base-color;
   cursor: pointer;
-  font-family: $base-font;
+  font-family: $brand-font;
   font-weight: 700;
   font-size: 28px;
   letter-spacing: 1px;
@@ -413,6 +420,7 @@ img {
   color: $base-lighten-color;
   font-size: 16px;
   max-width: 220px;
+  line-height: 1.75;
 
   @include mobile {
     margin: 10px auto;
@@ -425,11 +433,14 @@ img {
 }
 
 nav {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 28px;
   font-family: $base-font;
   font-weight: 500;
   font-size: 18px;
+  gap: 6px;
 
   @include mobile {
     margin-top: 9px;
@@ -437,24 +448,27 @@ nav {
   }
 
   a {
-    display: inline-block;
-    margin: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
     padding: 7px 14px;
-    text-align: right;
+    min-width: 128px;
+    text-align: center;
     font-weight: 300;
     letter-spacing: 0.5px;
+    color: $base-color;
     border: 1px solid transparent;
     border-radius: 999px;
 
     @include mobile {
-      margin: 0 10px;
-      color: $link-color;
+      color: $base-color;
     }
 
     &:hover,
     &:focus {
       border-color: $divider-color;
-      background-color: rgba(255, 255, 255, 0.7);
+      background-color: rgba(250, 241, 233, 0.82);
     }
   }
 }
@@ -569,10 +583,10 @@ nav {
 .section-hero-card,
 .post-card,
 .empty-state {
-  border: 1px solid rgba(222, 226, 230, 0.9);
+  border: 1px solid rgba(216, 194, 176, 0.92);
   border-radius: 28px;
-  background: rgba(255, 255, 255, 0.84);
-  box-shadow: 0 18px 45px rgba(52, 79, 199, 0.08);
+  background: rgba(255, 250, 245, 0.86);
+  box-shadow: 0 18px 45px rgba(111, 68, 84, 0.08);
   backdrop-filter: blur(8px);
 }
 
@@ -647,7 +661,7 @@ nav {
 .secondary-link {
   border: 1px solid $divider-color;
   color: $base-color;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(250, 241, 233, 0.82);
 }
 
 .home-highlight {
@@ -958,7 +972,9 @@ footer {
     text-align: center;
 
     li {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       margin: 10px;
     }
 
@@ -972,10 +988,18 @@ footer {
       }
     }
 
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 20px;
+    }
+
     .icon-image {
       display: block;
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
       opacity: 0.72;
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
@@ -1003,7 +1027,7 @@ footer {
 // 主题切换按钮
 .theme-toggle {
   position: fixed;
-  bottom: 20px;
+  top: 20px;
   left: 20px;
   z-index: 9999;
   width: 40px;
@@ -1032,15 +1056,15 @@ footer {
 /* 主题菜单样式 */
 .theme-menu {
   position: fixed;
-  bottom: 70px;
+  top: 70px;
   left: 20px;
   z-index: 9998;
-  background-color: $background-color;
-  opacity: 0.7;
-  border: 1px solid var(--divider-color);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background-color: rgba(250, 241, 233, 0.96);
+  border: 1px solid $divider-color;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(69, 52, 46, 0.12);
   display: none;
+  overflow: hidden;
 }
 
 /* 选项样式 */
@@ -1067,8 +1091,8 @@ body.dark-mode {
   background-color: var(--oc-gray-0);
   color: var(--oc-gray-8);
   background-image:
-    radial-gradient(circle at top left, rgba(128, 172, 255, 0.12), transparent 26%),
-    linear-gradient(180deg, rgba(33, 37, 41, 0.98), rgba(33, 37, 41, 0.98));
+    radial-gradient(circle at top left, rgba(213, 155, 171, 0.18), transparent 28%),
+    linear-gradient(180deg, rgba(23, 19, 18, 0.98), rgba(34, 29, 27, 0.98));
 
   // 链接样式
   a {
@@ -1080,8 +1104,11 @@ body.dark-mode {
 
   // 侧边栏
   .wrapper-sidebar {
-    background-color: var(--oc-gray-0);
-    border-right-color: var(--oc-gray-2);
+    background:
+      linear-gradient(180deg, rgba(34, 29, 27, 0.98), rgba(23, 19, 18, 0.98)),
+      var(--oc-gray-0);
+    border-right-color: var(--oc-gray-3);
+    box-shadow: 12px 0 40px rgba(0, 0, 0, 0.24);
   }
 
   .home-hero-copy,
@@ -1092,16 +1119,38 @@ body.dark-mode {
   .empty-state,
   nav a:hover,
   nav a:focus {
-    background: rgba(52, 58, 64, 0.84);
+    background: rgba(34, 29, 27, 0.9);
     border-color: var(--oc-gray-3);
     box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
   }
 
   .secondary-link,
   .section-badge {
-    background: rgba(73, 80, 87, 0.82);
+    background: rgba(58, 45, 49, 0.88);
     border-color: var(--oc-gray-3);
     color: var(--oc-gray-8);
+  }
+
+  .site-description,
+  .date,
+  .panel-meta,
+  .channel-status {
+    color: var(--oc-gray-7);
+  }
+
+  nav a {
+    color: var(--oc-gray-8);
+  }
+
+  .theme-toggle,
+  .theme-menu {
+    background-color: rgba(34, 29, 27, 0.96);
+    border-color: var(--oc-gray-3);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+  }
+
+  .theme-toggle svg {
+    fill: var(--oc-gray-8);
   }
 
   // 文章卡片和搜索框
