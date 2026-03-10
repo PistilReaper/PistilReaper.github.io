@@ -1,4 +1,4 @@
-{% if site.gitalk %}
+{% if site.gitalk and site.gitalk.clientID and site.gitalk.clientSecret and site.gitalk.clientID != "YOUR_GITALK_CLIENT_ID" and site.gitalk.clientSecret != "YOUR_GITALK_CLIENT_SECRET" %}
 <div class="comments">
     <div id="gitalk-container"></div>
     <script>

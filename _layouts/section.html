@@ -1,0 +1,63 @@
+---
+layout: default
+---
+{% assign section_posts = site.tags[page.section_tag] %}
+{% if section_posts %}
+  {% assign section_count = section_posts | size %}
+{% else %}
+  {% assign section_count = 0 %}
+{% endif %}
+
+<article class="section-page">
+  <header class="section-hero-card">
+    <div>
+      {% if page.section_code %}
+        <p class="section-kicker">{{ page.section_code }}</p>
+      {% endif %}
+      <h1>{{ page.title }}</h1>
+      {% if page.description %}
+        <p class="section-description">{{ page.description }}</p>
+      {% endif %}
+    </div>
+    <div class="section-badge">共 {{ section_count }} 篇</div>
+  </header>
+
+  <section class="section-feed">
+    {% if section_count > 0 %}
+      {% for post in section_posts %}
+        {% assign post_excerpt = post.excerpt | strip_html %}
+        <article class="post post-card">
+          <h2>
+            <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+          </h2>
+
+          <div class="meta">
+            <span class="date">{{ post.date | date: "%Y-%m-%d" }}</span>
+            <ul class="tag">
+              {% for tag in post.tags %}
+                <li>
+                  <a href="{{ site.baseurl }}/tags#{{ tag }}">{{ tag }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="entry">
+            {% if post_excerpt == "" %}
+              这篇文章已经创建，正文内容还在整理中。
+            {% else %}
+              {{ post_excerpt | truncate: 180 }}
+            {% endif %}
+          </div>
+
+          <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+        </article>
+      {% endfor %}
+    {% else %}
+      <div class="empty-state">
+        <h2>还没有文章</h2>
+        <p>这个栏目已经准备好，后续文章继续放在 `_posts/` 下，并通过 `tags` 决定它属于哪个栏目。</p>
+      </div>
+    {% endif %}
+  </section>
+</article>
