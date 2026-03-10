@@ -1,8 +1,8 @@
 name: "Pistil's blog"
 description: "记录我，以及我对世界的认识。"
 
-avatar: https://pianfan.github.io/images/profile.jpg
-favicon: https://pianfan.github.io/images/favicon.ico
+avatar: https://PistilReaper.github.io/images/profile.jpg
+favicon: https://PistilReaper.github.io/images/favicon.ico
 
 navigation:
   - name: 首页
@@ -28,7 +28,7 @@ footer-links:
 
 footer-text: Copyright (c) 2026 Tianyi Chen. All rights reserved.
 
-url: https://pianfan.github.io
+url: https://pistilreaper.github.io
 
 permalink: /:title/
 paginate_path: /page:num/
