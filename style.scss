@@ -26,7 +26,7 @@ body {
   line-height: 1.7em;
   background-image:
     radial-gradient(circle at top left, rgba(179, 106, 124, 0.16), transparent 28%),
-    linear-gradient(180deg, rgba(250, 241, 233, 0.96), rgba(246, 235, 223, 0.96));
+    linear-gradient(180deg, $surface-warm-strong, rgba(246, 235, 223, 0.96));
 }
 
 input,
@@ -468,7 +468,7 @@ nav {
     &:hover,
     &:focus {
       border-color: $divider-color;
-      background-color: rgba(250, 241, 233, 0.82);
+      background-color: $surface-warm-soft;
     }
   }
 }
@@ -661,7 +661,7 @@ nav {
 .secondary-link {
   border: 1px solid $divider-color;
   color: $base-color;
-  background: rgba(250, 241, 233, 0.82);
+  background: $surface-warm-soft;
 }
 
 .home-highlight {
@@ -1059,7 +1059,7 @@ footer {
   top: 70px;
   left: 20px;
   z-index: 9998;
-  background-color: rgba(250, 241, 233, 0.96);
+  background-color: $surface-warm-strong;
   border: 1px solid $divider-color;
   border-radius: 12px;
   box-shadow: 0 12px 28px rgba(69, 52, 46, 0.12);
@@ -1085,7 +1085,6 @@ footer {
 
 // 黑夜模式样式
 body.dark-mode {
-  --text-color: #e0e0e0;
   --divider-color: #333;
   
   background-color: var(--oc-gray-0);
@@ -1119,7 +1118,7 @@ body.dark-mode {
   .empty-state,
   nav a:hover,
   nav a:focus {
-    background: rgba(34, 29, 27, 0.9);
+    background: $surface-dark-soft;
     border-color: var(--oc-gray-3);
     box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
   }
@@ -1129,6 +1128,33 @@ body.dark-mode {
     background: rgba(58, 45, 49, 0.88);
     border-color: var(--oc-gray-3);
     color: var(--oc-gray-8);
+  }
+
+  a.primary-link,
+  a.channel-link {
+    background: linear-gradient(135deg, #5b3945, #744654);
+    color: #fdf2ea;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28);
+  }
+
+  a.primary-link:hover,
+  a.primary-link:focus,
+  a.channel-link:hover,
+  a.channel-link:focus {
+    color: #fff7f1;
+    background: linear-gradient(135deg, #6a4250, #855162);
+  }
+
+  a.secondary-link {
+    background: rgba(58, 45, 49, 0.92);
+    border-color: var(--oc-gray-3);
+    color: #f4e3d9;
+  }
+
+  a.secondary-link:hover,
+  a.secondary-link:focus {
+    background: rgba(72, 55, 60, 0.96);
+    color: #fff7f1;
   }
 
   .site-description,
@@ -1144,7 +1170,7 @@ body.dark-mode {
 
   .theme-toggle,
   .theme-menu {
-    background-color: rgba(34, 29, 27, 0.96);
+    background-color: $surface-dark-strong;
     border-color: var(--oc-gray-3);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
   }
@@ -1155,7 +1181,7 @@ body.dark-mode {
 
   // 文章卡片和搜索框
   .post, .sidebar, .search-container input {
-    color: var(--text-color);
+    color: var(--oc-gray-8);
     border-color: var(--divider-color);
   }
 
@@ -1240,22 +1266,22 @@ body.dark-mode {
       background-color: #f87171 !important;
     }
     .gd { // 删除
-      color: #f87171 !important;
-      background-color: #fee2e2 !important;
+      color: #fca5a5 !important;
+      background-color: rgba(127, 29, 29, 0.35) !important;
     }
     .gi { // 插入
-      color: #4ade80 !important;
-      background-color: #dcfce7 !important;
+      color: #86efac !important;
+      background-color: rgba(20, 83, 45, 0.35) !important;
     }
   }
 
   // Markdown代码块适配
   .markdown-body {
     code {
-      color: var(--oc-gray-0) !important;
+      color: var(--oc-gray-8) !important;
     }
     pre {
-      color: var(--oc-gray-0) !important;
+      color: var(--oc-gray-8) !important;
       border-color: var(--oc-gray-3) !important;
     }
     .pl-c { color: #8a9199 !important; }
