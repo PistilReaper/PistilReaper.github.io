@@ -19,7 +19,7 @@ layout: default
         如果你对文章内容有疑问，或发现文中存在错误，欢迎通过邮箱联系我，或在评论区指出。
       </p>
       <div class="home-actions">
-        <a class="primary-link" href="{{ site.baseurl }}/life/">进入最近更新</a>
+        <a class="primary-link" href="{% if latest_post %}{{ site.baseurl }}{{ latest_post.url }}{% else %}{{ site.baseurl }}/tags/{% endif %}">进入最近更新</a>
         <a class="secondary-link" href="{{ site.baseurl }}/tags/">按标签浏览全部文章</a>
       </div>
     </div>
