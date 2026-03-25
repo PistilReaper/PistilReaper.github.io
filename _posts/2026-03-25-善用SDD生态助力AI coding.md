@@ -1,11 +1,8 @@
 ---
 layout: post
 title: 善用SDD助力AI coding
-date:
-tags:
-  - 学习笔记
-  - Agent
-  - SDD
+date: 2026-03-25
+tags: [学习笔记, Agent, SDD]
 toc: true
 comments: true
 author: cty
