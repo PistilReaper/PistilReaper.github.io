@@ -45,13 +45,6 @@ gitalk:
   owner: PistilReaper
   admin: [PistilReaper]
   distractionFreeMode: false
-
-pageview:
-  enabled: true
-  provider: busuanzi
-  script_url: https://cdn.bootcdn.net/ajax/libs/busuanzi/2.3.0/bsz.pure.mini.js
-  exclude_storage_key: pistil-pageview-excluded
-  toggle_hash: "#toggle-pageview-exclude"
 # The release of Jekyll Now
 version: v1.2.0
 

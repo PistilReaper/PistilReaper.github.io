@@ -1,23 +1,5 @@
 {% include svg-icons.html %}
-{% assign footer_variant = include.footer_variant | default: "desktop" %}
 
 {% if site.footer-text %}
 <p>{{ site.footer-text }}</p>
-{% endif %}
-
-{% if site.pageview and site.pageview.enabled %}
-<p class="pageview-summary">
-  {% if footer_variant == "desktop" %}
-    <span id="busuanzi_container_site_pv" data-pageview-container style="display:none">
-      本站总浏览量 <span id="busuanzi_value_site_pv"></span>
-    </span>
-  {% else %}
-    <span class="pageview-site-pv" data-pageview-site-mirror data-pageview-container style="display:none">
-      本站总浏览量 <span data-pageview-site-value></span>
-    </span>
-  {% endif %}
-  <span class="pageview-note" data-pageview-excluded-note>
-    当前浏览器已排除在浏览量统计之外
-  </span>
-</p>
 {% endif %}

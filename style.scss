@@ -518,33 +518,6 @@ nav {
   }
 }
 
-.post-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 12px;
-  margin: 0 0 18px;
-}
-
-.pageview-inline,
-.pageview-summary {
-  font-size: $small-font-size;
-  color: $base-lighten-color;
-}
-
-.pageview-note {
-  display: none;
-  color: $base-lighten-color;
-}
-
-.pageview-excluded [data-pageview-container] {
-  display: none !important;
-}
-
-.pageview-excluded [data-pageview-excluded-note] {
-  display: inline;
-}
-
 .posts > .post {
   padding-bottom: 2em;
   border-bottom: 1px solid $divider-color;
