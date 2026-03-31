@@ -6,10 +6,21 @@ layout: default
   
   <h1>{{ page.title }}</h1>
 
-  <div clsss="meta">
+  <div class="post-meta">
     <span class="date">
       {{ page.date | date: "%Y-%m-%d" }}
     </span>
+
+    {% if site.pageview and site.pageview.enabled %}
+      <span class="pageview-inline">
+        <span id="busuanzi_container_page_pv" data-pageview-container style="display:none">
+          阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
+        <span class="pageview-note" data-pageview-excluded-note>
+          当前浏览器已排除统计
+        </span>
+      </span>
+    {% endif %}
 
     <ul class="tag">
       {% for tag in page.tags %}
