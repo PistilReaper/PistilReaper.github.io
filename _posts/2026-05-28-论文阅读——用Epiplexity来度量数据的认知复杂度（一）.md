@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 论文阅读--用epiplexity来度量数据的认知复杂度
+title: 论文阅读——用epiplexity来度量数据的认知复杂度
 date: 2026-05-28
 tags: [论文阅读, 科研, 表征学习]
 toc: true
