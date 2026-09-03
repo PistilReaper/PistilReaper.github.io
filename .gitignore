@@ -1,3 +1,4 @@
-# jekyll local file
-.jekyll*
+# local build output
 _site
+.worktrees/
+Publications/

@@ -1,94 +1,127 @@
----
-layout: default
----
-{% assign study_posts = site.tags["学习笔记"] %}
-{% assign research_posts = site.tags["科研"] %}
-{% assign life_posts = site.tags["生活"] %}
-{% assign latest_post = site.posts | first %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="only light">
+<title>Tianyi Chen</title>
+<link rel="icon" href="assets/brand/favicon.ico">
+<link rel="stylesheet" href="assets/style.css?v=12">
+</head>
+<body>
 
-<section class="home-shell">
-  <section class="home-hero">
-    <div class="home-hero-copy">
-      <p class="home-kicker">Tianyi Chen</p>
-      <h1>Welcome！</h1>
-      <p class="home-lead">
-        你好，我正在探索如何用AI促进我们对科学的认知。
-        这个站点用于记录我的学习笔记、科研感悟和生活切片。
-      </p>
-      <p class="home-lead">
-        如果你对文章内容有疑问，或发现文中存在错误，欢迎通过邮箱联系我，或在评论区指出。
-      </p>
-      <div class="home-actions">
-        <a class="primary-link" href="{% if latest_post %}{{ site.baseurl }}{{ latest_post.url }}{% else %}{{ site.baseurl }}/tags/{% endif %}">进入最近更新</a>
-        <a class="secondary-link" href="{{ site.baseurl }}/tags/">按标签浏览全部文章</a>
+<!-- floating tools -->
+<div class="tools">
+  <button id="theme-btn" class="tool-fab" aria-label="toggle ambient light" data-sound="click">
+    <svg viewBox="0 0 24 24" class="ic-sun"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><g stroke="currentColor" stroke-width="2"><line x1="12" y1="1.5" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22.5" y2="12"/><line x1="4.6" y1="4.6" x2="6.4" y2="6.4"/><line x1="17.6" y1="17.6" x2="19.4" y2="19.4"/><line x1="4.6" y1="19.4" x2="6.4" y2="17.6"/><line x1="17.6" y1="6.4" x2="19.4" y2="4.6"/></g></svg>
+    <svg viewBox="0 0 24 24" class="ic-moon"><path d="M20 13.5A8.5 8.5 0 1 1 10.5 4 6.8 6.8 0 0 0 20 13.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+  </button>
+  <button id="sound-btn" class="tool-fab" aria-label="toggle sound">
+    <svg viewBox="0 0 24 24" class="ic-snd-on"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 9q2.5 3 0 6M18.5 6.5q4 5.5 0 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg viewBox="0 0 24 24" class="ic-snd-off"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><line x1="16" y1="9" x2="22" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="22" y1="9" x2="16" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
+<button id="room-home-btn" class="tool-fab room-home-fab" type="button" aria-label="return to room" data-sound="click">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 11.2 12 3l9 8.2v9.3h-6v-6h-6v6H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<!-- room stage -->
+<div class="stage-shell">
+<div class="stage" id="stage">
+  <button class="edge left" id="edge-left" aria-label="previous wall"><span class="tri"></span></button>
+  <button class="edge right" id="edge-right" aria-label="next wall"><span class="tri"></span></button>
+</div>
+</div>
+
+<!-- ════════ content ════════ -->
+<main id="content">
+
+  <section class="content-page" id="content-about">
+    <h2 class="block-title">Biography</h2>
+    <div class="bio-grid">
+      <div class="bio-text" id="bio-text"></div>
+      <div class="bio-side">
+        <img class="bio-photo" src="assets/profile/photo.png" alt="Tianyi Chen">
+        <div class="bio-icons">
+          <a href="mailto:tianyi.chen@buaa.edu.cn" aria-label="email" data-sound="click">
+            <svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><polyline points="3,6 12,13 21,6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+          <a href="https://github.com/PistilReaper" target="_blank" aria-label="github" data-sound="click">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 1.8A10.3 10.3 0 0 0 1.7 12.1c0 4.6 3 8.4 7.1 9.8.5.1.7-.2.7-.5v-1.8c-2.9.6-3.5-1.2-3.5-1.2-.5-1.2-1.1-1.5-1.1-1.5-1-.6 0-.6 0-.6 1 .1 1.6 1.1 1.6 1.1 1 1.6 2.4 1.1 3 .9.1-.7.4-1.2.7-1.5-2.3-.3-4.7-1.1-4.7-5.1 0-1.1.4-2 1-2.7-.1-.3-.4-1.4.1-2.8 0 0 .9-.3 2.8 1a9.7 9.7 0 0 1 5.2 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.5.1 2.8.6.7 1 1.6 1 2.7 0 4-2.4 4.8-4.7 5.1.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5a10.3 10.3 0 0 0 7.1-9.8A10.3 10.3 0 0 0 12 1.8z"/></svg></a>
+          <a href="https://scholar.google.com/citations?hl=en&user=SCFxxLYAAAAJ" target="_blank" aria-label="google scholar" data-sound="click">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3L1 9l4 2.2V16c0 2.7 3.1 5 7 5s7-2.3 7-5v-4.8L21 10V9L12 3zm5 13c0 1.7-2.2 3.4-5 3.4S7 17.7 7 16v-3.4l4.4 2.4c.4.2.8.2 1.2 0L17 12.6V16z"/></svg></a>
+        </div>
       </div>
     </div>
 
-    <aside class="home-highlight">
-      <p class="panel-label">Latest Note</p>
-      {% if latest_post %}
-        {% assign latest_excerpt = latest_post.excerpt | strip_html %}
-        <h2><a href="{{ site.baseurl }}{{ latest_post.url }}">{{ latest_post.title }}</a></h2>
-        <p class="panel-meta">{{ latest_post.date | date: "%Y-%m-%d" }}</p>
-        {% if latest_excerpt == "" %}
-          <p>这篇文章已经建好入口，正文还在继续整理中。</p>
-        {% else %}
-          <p>{{ latest_excerpt | truncate: 120 }}</p>
-        {% endif %}
-      {% else %}
-        <h2>内容整理中</h2>
-        <p>第一篇文章发布后，这里会自动展示最近更新。</p>
-      {% endif %}
-    </aside>
+    <h2 class="block-title">Education</h2>
+    <div id="edu-list" class="edu-list"></div>
+
+    <h2 class="block-title">News</h2>
+    <ul id="news-list" class="news-list"></ul>
+
+    <h2 class="block-title">Contact</h2>
+    <div class="contact-block">
+      <p id="contact-text"></p>
+      <p class="contact-email"><a href="mailto:tianyi.chen@buaa.edu.cn" data-sound="click">tianyi.chen@buaa.edu.cn</a></p>
+    </div>
   </section>
 
-  <section class="channel-grid">
-    <article class="channel-card channel-study">
-      <p class="channel-code">01 / Study Notes</p>
-      <h2>学习笔记</h2>
-      <p>记录课程、软件、算法、代码实验和自学过程中值得反复回看的内容。</p>
-      {% if study_posts and study_posts.size > 0 %}
-        {% assign study_latest = study_posts | first %}
-        <div class="channel-status">
-          <span>已收录 {{ study_posts.size }} 篇</span>
-          <a href="{{ site.baseurl }}{{ study_latest.url }}">{{ study_latest.title }}</a>
-        </div>
-      {% else %}
-        <div class="channel-status empty">栏目准备中。</div>
-      {% endif %}
-      <a class="channel-link" href="{{ site.baseurl }}/study/">进入栏目</a>
-    </article>
+  <section class="content-page" id="content-publications">
+    <h2 class="block-title">Publications</h2>
+    <div id="pubs-root"></div>
+  </section>
 
-    <article class="channel-card channel-research">
-      <p class="channel-code">02 / Research</p>
-      <h2>科研</h2>
-      <p>整理研究问题、实验过程、论文阅读和阶段性判断，保留完整思考链路。</p>
-      {% if research_posts and research_posts.size > 0 %}
-        {% assign research_latest = research_posts | first %}
-        <div class="channel-status">
-          <span>已收录 {{ research_posts.size }} 篇</span>
-          <a href="{{ site.baseurl }}{{ research_latest.url }}">{{ research_latest.title }}</a>
+  <section class="content-page" id="content-blogs">
+    <div id="blogs-list-view">
+      <h2 class="block-title">Blogs</h2>
+      <div id="blogs-root"></div>
+    </div>
+    <article id="post-reader" class="post-reader" hidden>
+      <div class="post-reader-toolbar">
+        <button id="post-back" class="post-back" type="button" data-sound="click">← Back to Blogs</button>
+        <div class="post-reader-meta">
+          <strong id="post-reader-title"></strong>
+          <span id="post-reader-date"></span>
         </div>
-      {% else %}
-        <div class="channel-status empty">栏目准备中。</div>
-      {% endif %}
-      <a class="channel-link" href="{{ site.baseurl }}/research/">进入栏目</a>
-    </article>
-
-    <article class="channel-card channel-life">
-      <p class="channel-code">03 / Life</p>
-      <h2>生活</h2>
-      <p>保留那些更私人、更柔软但同样重要的表达，让站点不只是一份简历。</p>
-      {% if life_posts and life_posts.size > 0 %}
-        {% assign life_latest = life_posts | first %}
-        <div class="channel-status">
-          <span>已收录 {{ life_posts.size }} 篇</span>
-          <a href="{{ site.baseurl }}{{ life_latest.url }}">{{ life_latest.title }}</a>
-        </div>
-      {% else %}
-        <div class="channel-status empty">栏目准备中，适合日常观察、书影音和阶段感受。</div>
-      {% endif %}
-      <a class="channel-link" href="{{ site.baseurl }}/life/">进入栏目</a>
+      </div>
+      <div id="post-content" class="post-content"></div>
     </article>
   </section>
-</section>
+
+  <section class="content-page" id="content-beyond">
+    <div id="np-card" class="np-card" hidden>
+      <img id="np-cover" alt="">
+      <div class="np-meta">
+        <p id="np-title" class="np-title"></p>
+        <p id="np-artist" class="np-artist"></p>
+        <p id="np-note" class="np-note"></p>
+        <div class="np-bar"><div id="np-progress"></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- modal -->
+<div id="modal" class="modal" hidden>
+  <div class="modal-back"></div>
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close" aria-label="close" data-sound="click">×</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<audio id="vinyl-audio" preload="none" loop></audio>
+<audio id="fire-audio" preload="none" loop src="assets/audio/effects/fire.mp3"></audio>
+
+<script src="assets/data.js?v=5"></script>
+<script src="assets/app.js?v=6"></script>
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/room3d/core.js?v=20"></script>
+<script src="assets/room3d/layout.js?v=20"></script>
+<script src="assets/room3d/scene.js?v=20"></script>
+<script src="assets/room3d/main.js?v=20"></script>
+</body>
+</html>
