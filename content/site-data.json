@@ -1,0 +1,162 @@
+{
+  "bio": [
+    "Hi! This is Tianyi Chen. I am a second-year PhD student in Mechanical Engineering at Beihang University, Beijing, advised by <a href=\"https://shi.buaa.edu.cn/junzhang/en/index.htm\" target=\"_blank\">Prof. Jun Zhang</a>.",
+    "Previously, I received my B.Eng. in Mechanics from Beihang University (<a href=\"http://www.moe.gov.cn/srcsite/A15/moe_776/s3258/202001/t20200115_415589.html\" target=\"_blank\">plan for strengthening basic academic disciplines</a>). I then continued my graduate study at Beihang and transferred to the PhD program in 2025. During my undergraduate, I have been fortunate to work with <a href=\"https://shi.buaa.edu.cn/08548/en/index.htm\" target=\"_blank\">Prof. Liang Zhang</a> at the School of Computer Science and Engineering, Beihang University. During that time, I studied how grading strategies and algorithmic systems could be designed to improve open-ended programming courses. This was my first experience of turning a loosely defined real-world problem into something that could be formalized, modeled, and evaluated computationally.",
+    "My current research focuses on physical AI and symbolic regression. I am broadly interested in how modern AI algorithms can be designed or adapted to help us understand scientific systems, rather than merely predict them. My recent work has focused on discovering interpretable mathematical equations from multidimensional physical data, especially in fluid mechanics, where I am interested in problems such as multiscale modeling and the emergence of macroscopic descriptions from microscopic or mesoscopic dynamics.",
+    "In the future, I hope to explore scientific discovery beyond the conventional “data-to-equation” paradigm. I am therefore particularly interested in physical representation learning and AI systems that can identify useful scientific representations, formulate interpretable hypotheses, and iteratively test and refine them against simulation or experimental evidence."
+  ],
+  "education": [
+    {
+      "school": "Beihang University",
+      "logo": "assets/brand/beihang-emblem.jpg",
+      "degree": "Ph.D. in Mechanical Engineering",
+      "time": "Sep. 2024 – present"
+    },
+    {
+      "school": "Beihang University",
+      "logo": "assets/brand/beihang-emblem.jpg",
+      "degree": "B.Eng. in Mechanics",
+      "time": "Sep. 2020 – Jun. 2024"
+    }
+  ],
+  "news": [
+    {
+      "date": "Aug. 2026",
+      "html": "Oral presentation at the <b>14th National Conference on Fluid Mechanics</b>, Qingdao, China."
+    },
+    {
+      "date": "Jul. 2026",
+      "html": "Oral presentation at the <b>World Congress on Computational Mechanics (WCCM 2026)</b>, Munich, Germany."
+    },
+    {
+      "date": "Jul. 2025",
+      "html": "Our paper <a href='https://doi.org/10.1017/jfm.2025.10710' target='_blank'><i>Symbolic identification of tensor equations in multidimensional physical fields</i></a> was published in the <b>Journal of Fluid Mechanics</b> (vol. 1024, A34)."
+    }
+  ],
+  "contact": {
+    "html": "I'm always happy to discuss potential collaborations. Please send me a brief email describing the topic you would like to discuss. Once we have determined a time when we are both free, we can conduct an online meeting. Of course, if you are based in Beijing, you are welcome to schedule an offline coffee talk with me!"
+  },
+  "publications": [
+    {
+      "year": 2026,
+      "title": "PAStudio: A Peer Assessment Pedagogical Tool for Open-ended Assignments",
+      "authors": "Liang Zhang, Yue Zong, <b>Tianyi Chen</b>, Yan Ma, Jiangyiyang Zhu, Jing Li, and Lijun Zhang",
+      "venue": "ACM Transactions on Computing Education, 26(4)",
+      "links": [
+        [
+          "Paper",
+          "https://doi.org/10.1145/3811024"
+        ]
+      ],
+      "image": "assets/pub/pastudio-2026.png"
+    },
+    {
+      "year": 2025,
+      "title": "Symbolic identification of tensor equations in multidimensional physical fields",
+      "authors": "<b>Tianyi Chen</b>, Hao Yang, Wenjun Ma, and Jun Zhang",
+      "venue": "Journal of Fluid Mechanics, 1024, A34",
+      "links": [
+        [
+          "Paper",
+          "https://doi.org/10.1017/jfm.2025.10710"
+        ],
+        [
+          "Preprint",
+          "https://arxiv.org/abs/2507.01466"
+        ],
+        [
+          "GitHub",
+          "https://github.com/BUAA-MARS-group/SITE"
+        ]
+      ],
+      "image": "assets/pub/jfm-2025-site.png"
+    },
+    {
+      "year": 2024,
+      "title": "A Peer Grading Approach for Open-ended Programming Projects Based on Binary System and Swiss System",
+      "authors": "Liang Zhang*, <b>Tianyi Chen</b>*, Yue Zong, and Xiaopeng Gao",
+      "note": "* Equal contribution",
+      "venue": "ACM SIGCSE 2024, pp. 1484–1490",
+      "links": [
+        [
+          "Paper",
+          "https://doi.org/10.1145/3626252.3630767"
+        ]
+      ],
+      "image": "assets/pub/sigcse-2024.png"
+    },
+    {
+      "year": 2023,
+      "title": "Research to Practice of Blended Learning in Computer Programming Course",
+      "authors": "Liang Zhang, <b>Tianyi Chen</b>, Yue Zong, and Lijun Zhang",
+      "venue": "IEEE FIE 2023",
+      "links": [
+        [
+          "Paper",
+          "https://doi.org/10.1109/FIE58773.2023.10342940"
+        ]
+      ],
+      "image": "assets/pub/fie-2023-blended.png"
+    },
+    {
+      "year": 2023,
+      "title": "A Peer Review Approach to Grading Projects in Computer Courses",
+      "authors": "Liang Zhang, Yue Zong, <b>Tianyi Chen</b>, Yafeng Ma, Shuo An, and Lijun Zhang",
+      "venue": "IEEE FIE 2023",
+      "links": [
+        [
+          "Paper",
+          "https://doi.org/10.1109/FIE58773.2023.10343176"
+        ]
+      ],
+      "image": "assets/pub/fie-2023-review.png"
+    },
+    {
+      "year": 2022,
+      "title": "An Online Learning Help Approach Based on Q&A Sites in Programming Course",
+      "authors": "Liang Zhang, <b>Tianyi Chen</b>, Yafeng Ma, and Jianwei Niu",
+      "venue": "IEEE TALE 2022, pp. 31–37",
+      "links": [
+        [
+          "Paper",
+          "https://doi.org/10.1109/TALE54877.2022.00014"
+        ]
+      ],
+      "image": "assets/pub/tale-2022.png"
+    }
+  ],
+  "vinyl": [
+    {
+      "title_en": "I Love You",
+      "artist": "陶喆 David Tao",
+      "album": "David Tao (1997)",
+      "note_en": "A love song so simple it disarms you.",
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/41/71/fc/4171fc82-29c0-628c-1210-5aa772c24dd4/mzaf_15001781148470870809.plus.aac.p.m4a",
+      "cover": "assets/covers/taotzu.png"
+    },
+    {
+      "title_en": "Somebody to Love",
+      "artist": "Queen",
+      "album": "A Day at the Races (1976)",
+      "note_en": "Gospel-rock at its peak — Freddie turns loneliness into a hymn.",
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/a5/4b/64/a54b641c-7546-c695-1763-ce61458d6260/mzaf_15035944246675270326.plus.aac.p.m4a",
+      "cover": "assets/covers/queen.png"
+    },
+    {
+      "title_en": "cardigan",
+      "artist": "Taylor Swift",
+      "album": "folklore (2020)",
+      "note_en": "A song like an old cardigan — worn, pilled, irreplaceable.",
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6a/cd/00/6acd00e6-a733-7a98-07eb-0a889b2b35ab/mzaf_424591521405406197.plus.aac.p.m4a",
+      "cover": "assets/covers/taylor.png"
+    },
+    {
+      "title_en": "Wet Hands",
+      "artist": "C418",
+      "album": "Minecraft – Volume Alpha (2011)",
+      "note_en": "Rain on a blocky world at 2 a.m. — lonely, but gentle.",
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/33/be/0e/33be0e48-0e6e-f557-d915-d02014405b83/mzaf_17677877149121491792.plus.aac.p.m4a",
+      "cover": "assets/covers/c418.png"
+    }
+  ]
+}

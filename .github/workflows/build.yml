@@ -25,6 +25,9 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Verify generated content
+        run: node scripts/build-content.js --check
+
       - name: Assemble site artifact
         shell: pwsh
         run: |

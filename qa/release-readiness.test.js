@@ -63,7 +63,7 @@ test("Biography and Contact body copy is larger without changing other content",
 
 test("release cache keys advance for every edited frontend asset", () => {
   assert.match(index, /assets\/style\.css\?v=12/);
-  assert.match(index, /assets\/data\.js\?v=5/);
+  assert.match(index, /assets\/data\.js\?v=6/);
   assert.match(index, /assets\/app\.js\?v=6/);
 });
 
