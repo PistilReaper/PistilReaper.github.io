@@ -74,8 +74,23 @@
     })[character]);
   }
 
+  function renderMath(tex, displayMode) {
+    if (!window.katex) throw new Error("KaTeX 未加载");
+    return window.katex.renderToString(tex, {
+      displayMode,
+      throwOnError: false,
+      strict: "ignore",
+      trust: false,
+    });
+  }
+
   function inlineMarkdown(value) {
-    let text = escapeHtml(value);
+    const expressions = [];
+    const withPlaceholders = String(value).replace(/\$([^$\n]+)\$/g, (_, expression) => {
+      const index = expressions.push(expression.trim()) - 1;
+      return `\uE000${index}\uE001`;
+    });
+    let text = escapeHtml(withPlaceholders);
     text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, source) => {
       return `<img src="${source.trim()}" alt="${alt}">`;
     });
@@ -87,7 +102,7 @@
     text = text.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
     text = text.replace(/\*([^*]+)\*/g, "<em>$1</em>");
     text = text.replace(/`([^`]+)`/g, "<code>$1</code>");
-    text = text.replace(/\$([^$]+)\$/g, '<span class="post-inline-math">$1</span>');
+    text = text.replace(/\uE000(\d+)\uE001/g, (_, index) => renderMath(expressions[Number(index)], false));
     return text;
   }
 
@@ -114,7 +129,7 @@
       if (mathLines) {
         if (trimmed.endsWith("$$")) {
           mathLines.push(trimmed.slice(0, -2));
-          output.push(`<div class="post-math">${escapeHtml(mathLines.join("\n").trim())}</div>`);
+          output.push(`<div class="post-math">${renderMath(mathLines.join("\n").trim(), true)}</div>`);
           mathLines = null;
         } else mathLines.push(line);
         return;
@@ -122,7 +137,7 @@
       if (trimmed.startsWith("$$")) {
         flushParagraph(); closeList();
         const equation = trimmed.slice(2);
-        if (equation.endsWith("$$")) output.push(`<div class="post-math">${escapeHtml(equation.slice(0, -2).trim())}</div>`);
+        if (equation.endsWith("$$")) output.push(`<div class="post-math">${renderMath(equation.slice(0, -2).trim(), true)}</div>`);
         else mathLines = [equation];
         return;
       }
@@ -146,7 +161,7 @@
       paragraph.push(trimmed);
     });
     flushParagraph(); closeList();
-    if (mathLines) output.push(`<div class="post-math">${escapeHtml(mathLines.join("\n").trim())}</div>`);
+    if (mathLines) output.push(`<div class="post-math">${renderMath(mathLines.join("\n").trim(), true)}</div>`);
     return output.join("\n");
   }
 

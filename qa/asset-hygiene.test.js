@@ -84,7 +84,7 @@ test("every retained asset category contains only release inputs", () => {
     "room/global": 1,
     room: 4,
     room3d: 4,
-    vendor: 1,
+    vendor: 64,
   };
   Object.entries(expectedCounts).forEach(([relative, count]) => {
     assert.equal(countFiles(`assets/${relative}`), count, `${relative} contains an unexpected file count`);

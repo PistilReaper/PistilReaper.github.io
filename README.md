@@ -19,6 +19,7 @@ Open `http://127.0.0.1:4173/index.html#/about`.
 - `assets/audio/licenses/`: audio license records.
 - `assets/brand/`, `assets/profile/`, `assets/pub/`: identity and publication media.
 - `assets/covers/`, `assets/post-images/`: music covers and in-post images.
+- `assets/vendor/katex/`: locally hosted KaTeX runtime, styles, fonts, and license for blog formulas.
 - `content/site-data.json`: the only source for biography, news, publications, and music data.
 - `content/posts/`: the only source for blogs, with one Markdown file per post.
 - `scripts/build-site.js`: validates content and creates the ignored `_site/` deployment artifact.

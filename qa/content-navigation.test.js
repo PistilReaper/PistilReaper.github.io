@@ -70,9 +70,18 @@ test("posts open in an internal reader and return to the blogs list", () => {
 });
 
 test("cache keys advance for the edited frontend files", () => {
-  assert.match(index, /assets\/style\.css\?v=12/);
+  assert.match(index, /assets\/style\.css\?v=13/);
   assert.doesNotMatch(index, /assets\/data\.js/);
-  assert.match(index, /assets\/app\.js\?v=8/);
+  assert.match(index, /assets\/app\.js\?v=9/);
+});
+
+test("inline and display formulas are rendered by the local KaTeX runtime", () => {
+  assert.match(index, /assets\/vendor\/katex\/katex\.min\.css\?v=1/);
+  assert.match(index, /assets\/vendor\/katex\/katex\.min\.js\?v=1/);
+  assert.match(app, /function renderMath\(tex, displayMode\)/);
+  assert.match(app, /renderMath\(expressions\[Number\(index\)\], false\)/);
+  assert.match(app, /renderMath\([^\n]+, true\)/);
+  assert.match(app, /window\.katex\.renderToString/);
 });
 
 test("the 3D room waits for the shared site data before building vinyl records", () => {

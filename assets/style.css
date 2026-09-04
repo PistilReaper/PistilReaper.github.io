@@ -187,8 +187,8 @@ body.muted .ic-snd-off{display:block}
 .post-content a{overflow-wrap:anywhere}.post-content strong{color:color-mix(in srgb,var(--ink) 84%,var(--rose))}
 .post-content figure{margin:28px auto;text-align:center}.post-content figure img{max-width:100%;margin:auto;border:2px solid var(--ink);background:#f8f1e5;box-shadow:4px 4px 0 rgba(20,16,12,.18)}
 .post-content figcaption{margin-top:8px;color:var(--ink-soft);font:12px var(--mono)}
-.post-math{overflow-x:auto;margin:20px 0;padding:15px 18px;border-left:4px solid var(--gold);background:color-mix(in srgb,var(--paper) 82%,transparent);font:15px/1.7 var(--mono);white-space:pre-wrap}
-.post-inline-math{padding:0 .22em;color:var(--rose);font-family:var(--mono)}
+.post-math{overflow-x:auto;margin:20px 0;padding:15px 18px;border-left:4px solid var(--gold);background:color-mix(in srgb,var(--paper) 82%,transparent);text-align:center}
+.post-math .katex-display{margin:0}
 #content-beyond{min-height:28vh;display:flex;align-items:center;justify-content:center}
 .np-card{display:flex;gap:20px;align-items:center;width:min(680px,100%);padding:20px 24px;border:2px solid var(--ink);background:var(--card);box-shadow:4px 4px 0 rgba(20,16,12,.3)}
 .np-card[hidden]{display:none}.np-card img{width:92px;height:92px;border:2px solid var(--ink);image-rendering:pixelated}.np-meta{flex:1;min-width:0}.np-title{margin:0;font-size:20px;font-weight:700}.np-artist{margin:2px 0;color:var(--rose);font:13px var(--mono)}.np-note{margin:2px 0 10px;color:var(--ink-soft)}.np-bar{height:6px;background:rgba(60,45,35,.18);overflow:hidden}.np-bar div{height:100%;width:0;background:var(--rose);transition:width .25s linear}
