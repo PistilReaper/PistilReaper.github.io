@@ -1,6 +1,5 @@
 ---
 title: "善用SDD助力AI coding"
-date: "2026-03-25"
 tags: ["Agent","SDD"]
 excerpt: "AI coding时下十分火爆，大家纷纷尝试claude code、codex、open code等AI编程工具加速开发，但使用这些工具时，抛开飞速跳跃的消耗token数不谈，一个很让人难受的点是AI工具一顿猛写，结果发"
 ---
@@ -38,7 +37,7 @@ openspec init
 
 初始化成功如图所示，图中也展示了我们常用的几个命令：
 
-![初始化](..\images\Agent\openspec.png)
+![初始化](assets/post-images/Agent/openspec.png)
 
 按enter选择工具，这里我们选择Codex，当然你也可以选择Claude Code或其他coding agent。
 

@@ -3,17 +3,13 @@
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
-const vm = require("node:vm");
 
 const root = path.resolve(__dirname, "..");
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 const index = read("index.html");
 const style = read("assets/style.css");
 const app = read("assets/app.js");
-const dataSource = read("assets/data.js");
-const context = {};
-vm.runInNewContext(`${dataSource}\nthis.__SITE_DATA__ = SITE_DATA;`, context);
-const data = context.__SITE_DATA__;
+const data = JSON.parse(read("content/site-data.json"));
 
 function test(name, run) {
   try {
@@ -63,8 +59,8 @@ test("Biography and Contact body copy is larger without changing other content",
 
 test("release cache keys advance for every edited frontend asset", () => {
   assert.match(index, /assets\/style\.css\?v=12/);
-  assert.match(index, /assets\/data\.js\?v=6/);
-  assert.match(index, /assets\/app\.js\?v=6/);
+  assert.doesNotMatch(index, /assets\/data\.js/);
+  assert.match(index, /assets\/app\.js\?v=8/);
 });
 
 test("the hidden now-playing cover never requests the current HTML document", () => {

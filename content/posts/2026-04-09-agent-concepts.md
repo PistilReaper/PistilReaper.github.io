@@ -1,6 +1,5 @@
 ---
 title: "学习笔记——Agent的概念、原理与构建模式"
-date: "2026-04-09"
 tags: ["LLM","Agent"]
 excerpt: "普通的LLM擅长回答问题，但也存在一个限制，那就是它们无法感知或者是改变外界环境。"
 ---
@@ -20,7 +19,7 @@ Agent是多样的，具体为不同的任务可以设计不同的Agent，例如�
 
 **ReAct**全称为Reasoning and Acting，可能是目前使用最为广泛的Agent运行模式。该模式最早由姚顺雨（现在，也就是2026年在腾讯挂帅AI首席科学家）在ICLR 2023提出。
 
-![REAC T: SYNERGIZING REASONING AND ACTING IN LANGUAGE MODELS](..\images\Agent\react.png)
+![REAC T: SYNERGIZING REASONING AND ACTING IN LANGUAGE MODELS](assets/post-images/Agent/react.png)
 
 在该模式下，用户先提交任务，然后Agent做思考（thought），然后去判断是否调用工具，如果是，Agent将进行行动（action），然后观察（observation）行动的执行结果，随后继续进行思考，循环往复，直到Agent认为不再需要调用工具，可以直接给出结论了，则会输出最终答案（Final answer）。以上即为ReAct模式的流程。
 

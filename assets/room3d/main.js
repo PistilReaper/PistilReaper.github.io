@@ -443,6 +443,20 @@
     requestAnimationFrame(render);
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
-  else boot();
+  let domReady = document.readyState !== "loading";
+  let started = false;
+  function tryBoot() {
+    if (!started && domReady && window.SITE_DATA) {
+      started = true;
+      boot();
+    }
+  }
+  if (!domReady) {
+    document.addEventListener("DOMContentLoaded", () => {
+      domReady = true;
+      tryBoot();
+    }, { once: true });
+  }
+  if (!window.SITE_DATA) window.addEventListener("sitedataready", tryBoot, { once: true });
+  tryBoot();
 })();

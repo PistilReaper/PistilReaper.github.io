@@ -5,8 +5,8 @@ Interactive personal homepage built as a four-view 3D room, with About, Publicat
 ## Local preview
 
 ```powershell
-node scripts/build-content.js
-python -m http.server 4173 --bind 127.0.0.1
+node scripts/build-site.js
+python -m http.server 4173 --bind 127.0.0.1 --directory _site
 ```
 
 Open `http://127.0.0.1:4173/index.html#/about`.
@@ -19,28 +19,28 @@ Open `http://127.0.0.1:4173/index.html#/about`.
 - `assets/audio/licenses/`: audio license records.
 - `assets/brand/`, `assets/profile/`, `assets/pub/`: identity and publication media.
 - `assets/covers/`, `assets/post-images/`: music covers and in-post images.
-- `content/site-data.json`: biography, news, publications, and music data.
-- `content/posts/`: one Markdown source file per blog post.
-- `scripts/build-content.js`: validates Markdown metadata and generates `assets/data.js`.
+- `content/site-data.json`: the only source for biography, news, publications, and music data.
+- `content/posts/`: the only source for blogs, with one Markdown file per post.
+- `scripts/build-site.js`: validates content and creates the ignored `_site/` deployment artifact.
 - `qa/`: executable regression tests only.
 
 ## Editing content
 
 - Edit biography, news, publications, or music in `content/site-data.json`.
-- Add or edit blogs in `content/posts/*.md`. Each file must begin with JSON-valued `title`, `date`, `tags`, and `excerpt` front matter; copy an existing post as the format reference.
-- Put blog images in `assets/post-images/` and reference them from Markdown as `../images/<folder>/<file>`.
-- Run `node scripts/build-content.js` after every content change. Commit both the Markdown source and the generated `assets/data.js`.
-- Increment the `assets/data.js?v=` value in `index.html` when publishing changed content.
+- Add or edit blogs in `content/posts/*.md`. Name each file `YYYY-MM-DD-slug.md`; the filename is the post date and stable route ID.
+- Front matter contains exactly the JSON-valued `title`, `tags`, and `excerpt` fields. Copy an existing post as the format reference.
+- Put blog images in `assets/post-images/` and reference them as `assets/post-images/<folder>/<file>`.
+- Run `node scripts/build-site.js` and preview `_site/` after every content change. Commit only the source Markdown, JSON, and images; never commit `_site/`.
 
 ## Release boundary
 
-GitHub Pages uploads only `index.html` and `assets/`. The repository intentionally contains no legacy Jekyll pages or 2D room fallback; the fixed four-view 3D room is the only production site.
+GitHub Pages uploads only the generated `_site/` directory. It contains `index.html`, runtime assets, the site JSON, a metadata-only post index, and the Markdown posts. The repository intentionally contains no legacy Jekyll pages or 2D room fallback; the fixed four-view 3D room is the only production site.
 
-Markdown is the source of truth for blogs. `assets/data.js` is retained as a generated browser asset so the site stays dependency-free at runtime; the deployment workflow rejects stale generated data.
+The repository has no committed content bundle: the browser loads `content/site-data.json`, then fetches a post Markdown file only when that stable slug is opened.
 
 ## Verification
 
 ```powershell
-node scripts/build-content.js --check
+node scripts/build-site.js
 Get-ChildItem qa/*.test.js | ForEach-Object { node $_.FullName }
 ```

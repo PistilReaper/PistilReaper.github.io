@@ -2,7 +2,6 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const test = require("node:test");
-const vm = require("node:vm");
 
 const root = path.resolve(__dirname, "..");
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
@@ -32,21 +31,17 @@ test("repository contains only the fixed four-view 3D site", () => {
   });
 });
 
-test("runtime data has no legacy 2D layout manifest", () => {
-  const data = read("assets/data.js");
+test("source data has no legacy 2D layout manifest", () => {
+  const data = read("content/site-data.json");
   assert.doesNotMatch(data, /^\s*"layout"\s*:/m);
   assert.doesNotMatch(data, /^\s*"bbox"\s*:/m);
 });
 
-test("runtime data omits fields that only served previous versions", () => {
-  const source = read("assets/data.js");
-  const context = {};
-  vm.runInNewContext(`${source}\nthis.data = SITE_DATA;`, context);
-  const data = context.data;
+test("source data omits fields that only served previous versions", () => {
+  const data = JSON.parse(read("content/site-data.json"));
 
   assert.equal("email" in data.contact, false);
   assert.equal("motto" in data, false);
-  data.posts.forEach((post) => assert.equal("url" in post, false));
   data.vinyl.forEach((track) => {
     assert.deepEqual(Object.keys(track).sort(), ["album", "artist", "cover", "note_en", "preview", "title_en"]);
   });
@@ -91,9 +86,7 @@ test("room textures are limited to files loaded by the 3D renderer", () => {
 test("Pages workflow publishes only the static site artifact", () => {
   const workflow = read(".github/workflows/build.yml");
   assert.doesNotMatch(workflow, /jekyll/i);
-  assert.match(workflow, /New-Item|mkdir|install -d/);
-  assert.match(workflow, /index\.html/);
-  assert.match(workflow, /assets/);
+  assert.match(workflow, /build-site\.js/);
   assert.match(workflow, /path:\s*\.\/_site/);
 });
 

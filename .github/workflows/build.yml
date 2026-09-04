@@ -25,15 +25,8 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Verify generated content
-        run: node scripts/build-content.js --check
-
-      - name: Assemble site artifact
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Path ./_site
-          Copy-Item ./index.html ./_site/index.html
-          Copy-Item ./assets ./_site/assets -Recurse
+      - name: Build site artifact
+        run: node scripts/build-site.js
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

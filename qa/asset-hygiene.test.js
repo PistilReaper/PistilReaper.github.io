@@ -91,9 +91,9 @@ test("every retained asset category contains only release inputs", () => {
   });
 });
 
-test("Pages publishes only the production entrypoint and assets", () => {
+test("Pages publishes only the validated build artifact", () => {
   const workflow = read(".github/workflows/build.yml");
   assert.doesNotMatch(workflow, /jekyll/i);
-  assert.match(workflow, /Copy-Item \.\/index\.html \.\/_site\/index\.html/);
-  assert.match(workflow, /Copy-Item \.\/assets \.\/_site\/assets -Recurse/);
+  assert.match(workflow, /node scripts\/build-site\.js/);
+  assert.match(workflow, /path:\s*\.\/_site/);
 });

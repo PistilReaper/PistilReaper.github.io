@@ -1,7 +1,15 @@
-(function () {
+(async function () {
   "use strict";
 
-  const D = SITE_DATA;
+  const [siteResponse, postsResponse] = await Promise.all([
+    fetch("content/site-data.json", { cache: "no-cache" }),
+    fetch("content/posts/index.json", { cache: "no-cache" }),
+  ]);
+  if (!siteResponse.ok) throw new Error(`网站数据加载失败：${siteResponse.status}`);
+  if (!postsResponse.ok) throw new Error(`文章索引加载失败：${postsResponse.status}`);
+  const D = { ...(await siteResponse.json()), posts: await postsResponse.json() };
+  window.SITE_DATA = D;
+  window.dispatchEvent(new CustomEvent("sitedataready"));
   const $ = (selector, root = document) => root.querySelector(selector);
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -46,11 +54,11 @@
           <p class="pub-links">${entry.links.map(([label, url]) => `<a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`).join("")}</p>
         </div>
       </div>`).join("")}`).join("");
-  $("#blogs-root").innerHTML = D.posts.map((post, index) => `
+  $("#blogs-root").innerHTML = D.posts.map((post) => `
     <div class="blog-item">
       <span class="blog-date">${post.date}</span>
       <div>
-        <p class="blog-title"><a href="#/blogs/post/${index + 1}" data-post-index="${index}">${post.title}</a></p>
+        <p class="blog-title"><a href="#/blogs/post/${post.id}" data-post-id="${post.id}">${post.title}</a></p>
         ${post.excerpt ? `<p class="blog-excerpt">${post.excerpt}…</p>` : ""}
         <p class="blog-tags">${post.tags.map((tag) => `<span>${tag}</span>`).join("")}</p>
       </div>
@@ -69,11 +77,7 @@
   function inlineMarkdown(value) {
     let text = escapeHtml(value);
     text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, source) => {
-      const normalized = source.trim().replace(/\\/g, "/");
-      const imageSource = normalized.startsWith("../images/")
-        ? `assets/post-images/${normalized.slice("../images/".length)}`
-        : normalized;
-      return `<img src="${imageSource}" alt="${alt}">`;
+      return `<img src="${source.trim()}" alt="${alt}">`;
     });
     text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, rawHref) => {
       const hrefMatch = rawHref.match(/https?:\/\/\S+$/);
@@ -150,29 +154,54 @@
   const blogsListView = $("#blogs-list-view");
   const postReader = $("#post-reader");
   const postContent = $("#post-content");
-  let activePostIndex = null;
+  const postCache = new Map();
+  let activePostId = null;
   let blogsListScrollY = 0;
 
-  function openPost(index, options = {}) {
-    const post = D.posts[index];
+  function stripFrontMatter(markdown) {
+    const normalized = markdown.replace(/\r\n?/g, "\n");
+    if (!normalized.startsWith("---\n")) throw new Error("文章缺少 front matter");
+    const boundary = normalized.indexOf("\n---\n", 4);
+    if (boundary < 0) throw new Error("文章 front matter 未正确结束");
+    return normalized.slice(boundary + 5).trim();
+  }
+
+  async function loadPost(post) {
+    if (postCache.has(post.id)) return postCache.get(post.id);
+    const response = await fetch(post.source, { cache: "no-cache" });
+    if (!response.ok) throw new Error(`文章加载失败：${response.status}`);
+    const markdown = stripFrontMatter(await response.text());
+    postCache.set(post.id, markdown);
+    return markdown;
+  }
+
+  async function openPost(id, options = {}) {
+    const post = D.posts.find((entry) => entry.id === id);
     if (!post) return;
-    if (activePostIndex === null) {
+    if (activePostId === null) {
       blogsListScrollY = options.rememberScroll === false ? blogsSection.offsetTop : window.scrollY;
     }
-    activePostIndex = index;
+    activePostId = id;
     $("#post-reader-title").textContent = post.title;
     $("#post-reader-date").textContent = post.date;
-    postContent.innerHTML = renderMarkdown(post.content);
+    postContent.textContent = "文章加载中…";
     blogsListView.hidden = true;
     postReader.hidden = false;
-    if (options.updateHistory !== false) history.pushState(null, "", `#/blogs/post/${index + 1}`);
+    if (options.updateHistory !== false) history.pushState(null, "", `#/blogs/post/${post.id}`);
     scrollToElement(blogsSection);
     $("#post-back").focus({ preventScroll: true });
+    try {
+      const markdown = await loadPost(post);
+      if (activePostId === id) postContent.innerHTML = renderMarkdown(markdown);
+    } catch (error) {
+      console.error(error);
+      if (activePostId === id) postContent.textContent = "文章加载失败，请刷新页面重试。";
+    }
   }
 
   function closePost(options = {}) {
-    if (activePostIndex === null && postReader.hidden) return;
-    activePostIndex = null;
+    if (activePostId === null && postReader.hidden) return;
+    activePostId = null;
     postReader.hidden = true;
     blogsListView.hidden = false;
     postContent.replaceChildren();
@@ -183,10 +212,10 @@
   }
 
   $("#blogs-root").addEventListener("click", (event) => {
-    const link = event.target.closest("[data-post-index]");
+    const link = event.target.closest("[data-post-id]");
     if (!link) return;
     event.preventDefault();
-    openPost(Number(link.dataset.postIndex));
+    openPost(link.dataset.postId);
   });
   $("#post-back").addEventListener("click", () => closePost());
 
@@ -197,7 +226,7 @@
   function showWall(name, direction = 0, skipHash = false) {
     const nextIndex = WALLS.indexOf(name);
     if (nextIndex < 0 || switching || nextIndex === wallIndex) return;
-    if (activePostIndex !== null && name !== "blogs") closePost({ updateHistory: false, restoreScroll: false });
+    if (activePostId !== null && name !== "blogs") closePost({ updateHistory: false, restoreScroll: false });
     wallIndex = nextIndex;
     document.querySelectorAll(".content-page").forEach((section) => {
       section.classList.toggle("current", section.id === `content-${name}`);
@@ -230,9 +259,9 @@
     const parts = location.hash.replace(/^#\/?/, "").split("/").filter(Boolean);
     const wall = WALLS.includes(parts[0]) ? parts[0] : "about";
     showWall(wall, 0, true);
-    const postIndex = wall === "blogs" && parts[1] === "post" ? Number(parts[2]) - 1 : -1;
-    if (postIndex >= 0 && postIndex < D.posts.length) openPost(postIndex, { updateHistory: false, rememberScroll: false });
-    else if (activePostIndex !== null) closePost({ updateHistory: false });
+    const postId = wall === "blogs" && parts[1] === "post" ? parts[2] : "";
+    if (D.posts.some((post) => post.id === postId)) openPost(postId, { updateHistory: false, rememberScroll: false });
+    else if (activePostId !== null) closePost({ updateHistory: false });
   }
   window.addEventListener("hashchange", syncRoute);
   window.addEventListener("popstate", syncRoute);
@@ -242,4 +271,8 @@
   $(".modal-back").addEventListener("click", () => { modal.hidden = true; });
 
   syncRoute();
-})();
+})().catch((error) => {
+  console.error(error);
+  const target = document.querySelector("#blogs-root");
+  if (target) target.textContent = "网站内容加载失败，请刷新页面重试。";
+});
