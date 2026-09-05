@@ -63,7 +63,7 @@ test("fixed-view arrows are visible and room assets use the current cache keys",
   assert.match(style, /\.stage\.is-fixed-view \.edge \.tri\{opacity:\.72;transform:none\}/);
   assert.match(index, /assets\/style\.css\?v=15/);
   assert.doesNotMatch(index, /assets\/data\.js/);
-  assert.match(index, /assets\/app\.js\?v=10/);
+  assert.match(index, /assets\/app\.js\?v=11/);
   assert.match(index, /assets\/room3d\/core\.js\?v=23/);
   assert.match(index, /assets\/room3d\/layout\.js\?v=20/);
   assert.match(index, /assets\/room3d\/scene\.js\?v=22/);

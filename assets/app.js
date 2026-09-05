@@ -86,7 +86,13 @@
 
   function inlineMarkdown(value) {
     const expressions = [];
-    const withPlaceholders = String(value).replace(/\$([^$\n]+)\$/g, (_, expression) => {
+    const literals = [];
+    const withPlaceholders = String(value).replace(/\\([!"#$%&'()*+,\-./:;<=>?@[\]\\^_`{|}~])|`([^`]+)`|\$([^$\n]+)\$/g, (_, escaped, code, expression) => {
+      if (escaped !== undefined || code !== undefined) {
+        const html = code !== undefined ? `<code>${escapeHtml(code)}</code>` : escapeHtml(escaped);
+        const index = literals.push(html) - 1;
+        return `\uE002${index}\uE003`;
+      }
       const index = expressions.push(expression.trim()) - 1;
       return `\uE000${index}\uE001`;
     });
@@ -101,7 +107,7 @@
     });
     text = text.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
     text = text.replace(/\*([^*]+)\*/g, "<em>$1</em>");
-    text = text.replace(/`([^`]+)`/g, "<code>$1</code>");
+    text = text.replace(/\uE002(\d+)\uE003/g, (_, index) => literals[Number(index)]);
     text = text.replace(/\uE000(\d+)\uE001/g, (_, index) => renderMath(expressions[Number(index)], false));
     return text;
   }
