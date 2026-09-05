@@ -76,10 +76,10 @@ test("room textures are limited to files loaded by the 3D renderer", () => {
   visit(roomRoot);
 
   assert.deepEqual(actual.sort(), [
-    "about/painting.png",
-    "beyond/day.png",
-    "beyond/night.png",
-    "global/wallpaper.png",
+    "about/painting.webp",
+    "beyond/day.webp",
+    "beyond/night.webp",
+    "global/wallpaper.webp",
   ]);
 });
 

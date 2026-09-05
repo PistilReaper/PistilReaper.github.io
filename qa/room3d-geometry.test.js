@@ -44,7 +44,7 @@ test("centralized layout keeps every wall object inside the usable span", () => 
 test("single-frame painting crops the framed source to its artwork", () => {
   const scene = fs.readFileSync(scenePath, "utf8");
   assert.match(scene, /function solidFrame\(/);
-  assert.match(scene, /painting\.png[\s\S]*crop:/);
+  assert.match(scene, /painting\.webp[\s\S]*crop:/);
   assert.doesNotMatch(scene, /frame\(painting/);
 });
 

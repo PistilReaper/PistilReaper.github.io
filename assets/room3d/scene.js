@@ -199,7 +199,7 @@
     registry.push(env);
 
     const painting = new THREE.Group();
-    C.put(painting, C.texturePlane("assets/room/about/painting.png", 2.72, 1.36, {
+    C.put(painting, C.texturePlane("assets/room/about/painting.webp", 2.72, 1.36, {
       outline: false,
       crop: { x: 0.071, y: 0.118, width: 0.866, height: 0.772 },
     }), 0, 0, 0.07);
@@ -596,8 +596,8 @@
 
   function windowAssembly(state) {
     const g = new THREE.Group();
-    const day = C.texturePlane("assets/room/beyond/day.png", 2.18, 2.42, { outline: false });
-    const night = C.texturePlane("assets/room/beyond/night.png", 2.18, 2.42, { outline: false });
+    const day = C.texturePlane("assets/room/beyond/day.webp", 2.18, 2.42, { outline: false });
+    const night = C.texturePlane("assets/room/beyond/night.webp", 2.18, 2.42, { outline: false });
     C.put(g, day, 0, 0, 0.035);
     C.put(g, night, 0, 0, 0.045);
     night.visible = false;

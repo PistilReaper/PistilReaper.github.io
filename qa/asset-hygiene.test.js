@@ -48,7 +48,7 @@ test("runtime assets use semantic production directories", () => {
   assert.doesNotMatch(source, /assets\/room\/v2|assets\/audio\/cabin|assets\/photo\.png/);
   assert.doesNotMatch(app, /assets\/room\//);
   assert.match(main, /assets\/audio\/effects\/\$\{name\}\.mp3/);
-  assert.match(index, /assets\/profile\/photo\.png/);
+  assert.match(index, /assets\/profile\/photo\.webp/);
   assert.match(index, /assets\/audio\/effects\/fire\.mp3/);
 });
 

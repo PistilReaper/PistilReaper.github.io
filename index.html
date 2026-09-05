@@ -5,6 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="only light">
 <title>Tianyi Chen</title>
+<link rel="preload" as="image" href="assets/room/global/wallpaper.webp" type="image/webp" crossorigin="anonymous" fetchpriority="high">
+<script>
+  // Discover the initial view's textures before the scene scripts execute.
+  (() => {
+    const view = location.hash.replace(/^#\/?/, "").split("/")[0];
+    let texture;
+    if (view === "beyond") {
+      const night = localStorage.getItem("tc-theme") === "night";
+      texture = `assets/room/beyond/${night ? "night" : "day"}.webp`;
+    } else if (!["publications", "blogs"].includes(view)) {
+      texture = "assets/room/about/painting.webp";
+    }
+    if (texture) {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.type = "image/webp";
+      link.crossOrigin = "anonymous";
+      link.fetchPriority = "high";
+      link.href = texture;
+      document.head.appendChild(link);
+    }
+  })();
+</script>
 <link rel="icon" href="assets/brand/favicon.ico">
 <link rel="stylesheet" href="assets/style.css?v=13">
 <link rel="stylesheet" href="assets/vendor/katex/katex.min.css?v=1">
@@ -45,7 +69,7 @@
     <div class="bio-grid">
       <div class="bio-text" id="bio-text"></div>
       <div class="bio-side">
-        <img class="bio-photo" src="assets/profile/photo.png" alt="Tianyi Chen">
+        <img class="bio-photo" src="assets/profile/photo.webp" alt="Tianyi Chen">
         <div class="bio-icons">
           <a href="mailto:tianyi.chen@buaa.edu.cn" aria-label="email" data-sound="click">
             <svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><polyline points="3,6 12,13 21,6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
@@ -120,9 +144,9 @@
 <script src="assets/vendor/katex/katex.min.js?v=1"></script>
 <script src="assets/app.js?v=9"></script>
 <script src="assets/vendor/three.min.js"></script>
-<script src="assets/room3d/core.js?v=20"></script>
+<script src="assets/room3d/core.js?v=21"></script>
 <script src="assets/room3d/layout.js?v=20"></script>
-<script src="assets/room3d/scene.js?v=20"></script>
+<script src="assets/room3d/scene.js?v=21"></script>
 <script src="assets/room3d/main.js?v=21"></script>
 </body>
 </html>

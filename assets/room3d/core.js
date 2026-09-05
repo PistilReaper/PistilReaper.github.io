@@ -133,7 +133,7 @@
   }
 
   function wallpaperTexture() {
-    const texture = new THREE.TextureLoader().load("assets/room/global/wallpaper.png");
+    const texture = new THREE.TextureLoader().load("assets/room/global/wallpaper.webp");
     texture.encoding = THREE.sRGBEncoding;
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(4.2, 2.35);
