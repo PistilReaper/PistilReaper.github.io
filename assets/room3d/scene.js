@@ -597,7 +597,11 @@
   function windowAssembly(state) {
     const g = new THREE.Group();
     const day = C.texturePlane("assets/room/beyond/day.webp", 2.18, 2.42, { outline: false });
-    const night = C.texturePlane("assets/room/beyond/night.webp", 2.18, 2.42, { outline: false });
+    const night = C.texturePlane("assets/room/beyond/night.webp", 2.18, 2.42, { outline: false, transparent: true });
+    [day, night].forEach((view) => view.traverse((part) => {
+      if (part.material) part.material.userData.keepLight = true;
+    }));
+    night.children[0].material.depthWrite = false;
     C.put(g, day, 0, 0, 0.035);
     C.put(g, night, 0, 0, 0.045);
     night.visible = false;
@@ -755,6 +759,11 @@
     buildPublications(walls.publications, interactive);
     buildBlogs(walls.blogs, interactive);
     buildBeyond(walls.beyond, interactive, state);
+    interactive.filter((object) => ["lamp", "fire"].includes(object.userData.action)).forEach((object) => {
+      object.traverse((part) => {
+        if (part.material?.transparent) part.material.userData.keepLight = true;
+      });
+    });
 
     function update(dt, elapsed) {
       interactive.forEach((obj) => C.updateHover(obj, dt));
@@ -901,9 +910,13 @@
     }
 
     function setNight(night) {
-      state.nightMode = night;
-      if (state.day) state.day.visible = !night;
-      if (state.night) state.night.visible = night;
+      const amount = Number(night);
+      state.nightMode = amount >= 0.5;
+      if (state.day) state.day.visible = true;
+      if (state.night) {
+        state.night.visible = amount > 0;
+        state.night.children[0].material.opacity = amount;
+      }
     }
 
     function selectRecord(index) {

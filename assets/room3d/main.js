@@ -69,6 +69,36 @@
     let yaw = WALL_VIEWS[currentViewName].yaw;
     let transition = null;
     let hovered = null;
+    const tooltip = document.createElement("div");
+    tooltip.className = "room-tooltip";
+    tooltip.hidden = true;
+    tooltip.setAttribute("role", "tooltip");
+    layer.appendChild(tooltip);
+
+    function interactionLabel(object) {
+      const action = object?.userData.action || "";
+      if (action.startsWith("publication-")) return "Publications";
+      if (action.startsWith("track-")) return "Select record";
+      if (action.startsWith("chair-")) return "Move chair";
+      if (action.startsWith("drawer-")) return object.userData.open ? "Close drawer" : "Open drawer";
+      const labels = {
+        biography: "About me", blogs: "Blogs", motto: "A thought to share",
+        window: object?.userData.open ? "Close window" : "Open window",
+        lamp: object?.userData.on ? "Turn off lamp" : "Turn on lamp",
+        fire: object?.userData.fireGoal > 0.5 ? "Put out fire" : "Light fire",
+        pillow: "Move cushion", plant: "Rustle leaves", gramophone: "Beyond research",
+      };
+      return labels[action] || "";
+    }
+
+    function showTooltip(event) {
+      tooltip.textContent = interactionLabel(hovered);
+      tooltip.hidden = !tooltip.textContent || event.pointerType === "touch";
+      if (tooltip.hidden) return;
+      const rect = layer.getBoundingClientRect();
+      tooltip.style.left = `${Math.max(8, Math.min(event.clientX - rect.left + 16, rect.width - tooltip.offsetWidth - 8))}px`;
+      tooltip.style.top = `${Math.max(8, Math.min(event.clientY - rect.top + 18, rect.height - tooltip.offsetHeight - 8))}px`;
+    }
     let selectedTrack = 0;
     let publicationNavTimer = 0;
     let lastTime = performance.now();
@@ -300,8 +330,12 @@
         object.userData.on = !object.userData.on;
         SND.play("lamp");
         object.userData.shade?.traverse((part) => {
-          if (part.material?.color) part.material.color.setHex(object.userData.on ? 0x78934f : 0x2f6b48);
+          if (part.material?.color) {
+            part.material.color.setHex(object.userData.on ? 0x78934f : 0x2f6b48);
+            part.material.userData.baseColor.copy(part.material.color);
+          }
         });
+        paintTheme();
       } else if (action === "fire") {
         const lit = object.userData.fireGoal <= 0.5;
         object.userData.fireGoal = lit ? 1 : 0;
@@ -354,10 +388,11 @@
       updatePointer(event);
       raycaster.setFromCamera(pointer, camera);
       const next = pickInteraction();
-      if (next === hovered) return;
+      if (next === hovered) { showTooltip(event); return; }
       C.setHover(hovered, false);
       hovered = next;
       C.setHover(hovered, true);
+      showTooltip(event);
       renderer.domElement.style.cursor = hovered ? "pointer" : "default";
     }
 
@@ -367,6 +402,7 @@
       raycaster.setFromCamera(pointer, camera);
       const hit = pickInteraction();
       if (hit) activate(hit);
+      showTooltip(event);
     }
 
     function turnToView(name, direction = 0) {
@@ -383,12 +419,14 @@
       currentViewName = name;
       C.setHover(hovered, false);
       hovered = null;
+      tooltip.hidden = true;
       renderer.domElement.style.cursor = "default";
     }
 
     renderer.domElement.addEventListener("pointermove", refreshHover);
     renderer.domElement.addEventListener("click", activatePointerHit);
     renderer.domElement.addEventListener("pointerleave", () => {
+      tooltip.hidden = true;
       C.setHover(hovered, false); hovered = null; pointer.set(2, 2);
       renderer.domElement.style.cursor = "default";
     });
@@ -397,10 +435,25 @@
       turnToView(event.detail?.name, event.detail?.direction || 0);
     });
 
+    let themeLevel = Number(document.body.classList.contains("night"));
+    let themeTarget = themeLevel;
+    let themeTransition = null;
+    function paintTheme() {
+      room.setNight(themeLevel);
+      C.applyNight(renderer, room.root, themeLevel);
+    }
+    paintTheme();
     function applyTheme() {
       const night = document.body.classList.contains("night");
-      room.setNight(night);
-      C.applyNight(renderer, room.root, night);
+      const target = Number(night);
+      if (target !== themeTarget) {
+        themeTarget = target;
+        themeTransition = { from: themeLevel, start: performance.now() };
+        if (prefersReduced) { themeLevel = target; themeTransition = null; paintTheme(); }
+      }
+      const themeButton = document.getElementById("theme-btn");
+      themeButton.setAttribute("aria-label", night ? "Switch to day" : "Switch to night");
+      themeButton.setAttribute("aria-pressed", String(night));
       syncPersistentAudio();
     }
     const bodyObserver = new MutationObserver(applyTheme);
@@ -415,6 +468,12 @@
       const dt = Math.min(0.05, (now - lastTime) / 1000);
       lastTime = now;
       const elapsed = clock.getElapsedTime();
+      if (themeTransition) {
+        const progress = Math.min(1, (now - themeTransition.start) / 850);
+        themeLevel = themeTransition.from + (themeTarget - themeTransition.from) * smoothstep(progress);
+        paintTheme();
+        if (progress === 1) themeTransition = null;
+      }
       if (transition) {
         const progress = transition.duration === 0 ? 1 : Math.min(1, (now - transition.startedAt) / transition.duration);
         const eased = smoothstep(progress);

@@ -70,9 +70,9 @@ test("posts open in an internal reader and return to the blogs list", () => {
 });
 
 test("cache keys advance for the edited frontend files", () => {
-  assert.match(index, /assets\/style\.css\?v=13/);
+  assert.match(index, /assets\/style\.css\?v=14/);
   assert.doesNotMatch(index, /assets\/data\.js/);
-  assert.match(index, /assets\/app\.js\?v=9/);
+  assert.match(index, /assets\/app\.js\?v=10/);
 });
 
 test("inline and display formulas are rendered by the local KaTeX runtime", () => {

@@ -230,8 +230,17 @@
 
   function updateHover(group, dt) {
     if (!group || !group.userData.interactive) return;
+    const changed = group.userData.hover !== group.userData.hoverGoal;
     group.userData.hover = group.userData.hoverGoal;
     group.scale.copy(group.userData.baseScale);
+    if (!changed && !group.userData.hover) return;
+    group.traverse((part) => {
+      const mat = part.material;
+      if (!part.isLineSegments || !mat?.color || !mat.userData.baseColor) return;
+      const base = mat.userData.themeColor || mat.userData.baseColor;
+      mat.color.copy(base);
+      if (group.userData.hover) mat.color.lerp(new THREE.Color(PALETTE.gold), 0.75);
+    });
   }
 
   function findInteraction(object) {
@@ -264,15 +273,15 @@
   }
 
   function applyNight(renderer, root, night) {
-    renderer.setClearColor(night ? 0x171a1d : PALETTE.paper, 1);
-    root.traverse((object) => {
-      const material = object.material;
-      const list = Array.isArray(material) ? material : [material];
-      list.filter(Boolean).forEach((mat) => {
-        if (!mat.color || !mat.userData.baseColor) return;
-        mat.color.copy(mat.userData.baseColor);
-        if (night) mat.color.multiplyScalar(mat.isLineBasicMaterial ? 0.72 : 0.48);
-      });
+    const amount = Number(night);
+    renderer.setClearColor(new THREE.Color(PALETTE.paper).lerp(new THREE.Color(0x171a1d), amount), 1);
+    trackedMaterials.forEach((mat) => {
+      if (mat.userData.keepLight) return;
+      const tint = mat.isLineBasicMaterial ? new THREE.Color(0.72, 0.72, 0.72) : new THREE.Color(0.48, 0.52, 0.64);
+      const target = mat.userData.baseColor.clone().multiply(tint);
+      mat.color.copy(mat.userData.baseColor).lerp(target, amount);
+      if (!mat.userData.themeColor) mat.userData.themeColor = mat.color.clone();
+      else mat.userData.themeColor.copy(mat.color);
     });
   }
 

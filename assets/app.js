@@ -243,6 +243,10 @@
     if (nextIndex < 0 || switching || nextIndex === wallIndex) return;
     if (activePostId !== null && name !== "blogs") closePost({ updateHistory: false, restoreScroll: false });
     wallIndex = nextIndex;
+    document.querySelectorAll(".room-nav [data-wall]").forEach((link) => {
+      if (link.dataset.wall === name) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
     document.querySelectorAll(".content-page").forEach((section) => {
       section.classList.toggle("current", section.id === `content-${name}`);
     });
@@ -259,6 +263,16 @@
     if (switching) return;
     showWall(WALLS[(wallIndex + direction + WALLS.length) % WALLS.length], direction);
   }
+  document.querySelector(".room-nav").addEventListener("click", (event) => {
+    const link = event.target.closest("[data-wall]");
+    if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    if (switching) return;
+    closePost({ updateHistory: false, restoreScroll: false });
+    showWall(link.dataset.wall);
+    history.replaceState(null, "", link.getAttribute("href"));
+    window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+  });
   $("#edge-left").addEventListener("click", () => stepWall(-1));
   $("#edge-right").addEventListener("click", () => stepWall(1));
   document.addEventListener("keydown", (event) => {

@@ -23,7 +23,7 @@ function test(name, run) {
   }
 }
 
-test("interactive objects use cursor-only hover feedback", () => {
+test("hover feedback preserves object geometry", () => {
   assert.doesNotMatch(core, /hover \* 0\.035/);
   assert.match(core, /group\.scale\.copy\(group\.userData\.baseScale\)/);
 });
