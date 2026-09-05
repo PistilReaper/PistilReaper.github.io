@@ -86,7 +86,7 @@
         window: object?.userData.open ? "Close window" : "Open window",
         lamp: object?.userData.on ? "Turn off lamp" : "Turn on lamp",
         fire: object?.userData.fireGoal > 0.5 ? "Put out fire" : "Light fire",
-        pillow: "Move cushion", plant: "Rustle leaves", gramophone: "Beyond research",
+        pillow: "Move cushion", plant: "Rustle leaves", gramophone: "Gramophone",
       };
       return labels[action] || "";
     }

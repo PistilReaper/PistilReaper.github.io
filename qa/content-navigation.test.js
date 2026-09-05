@@ -70,7 +70,7 @@ test("posts open in an internal reader and return to the blogs list", () => {
 });
 
 test("cache keys advance for the edited frontend files", () => {
-  assert.match(index, /assets\/style\.css\?v=14/);
+  assert.match(index, /assets\/style\.css\?v=15/);
   assert.doesNotMatch(index, /assets\/data\.js/);
   assert.match(index, /assets\/app\.js\?v=10/);
 });
