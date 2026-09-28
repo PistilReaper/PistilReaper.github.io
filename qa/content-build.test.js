@@ -22,7 +22,7 @@ test("post filename owns date and slug while front matter owns display metadata"
   const { parsePost } = require(buildScript);
   const postsRoot = path.join(root, "content", "posts");
   const files = fs.readdirSync(postsRoot).filter((name) => name.endsWith(".md"));
-  assert.equal(files.length, 6);
+  assert.ok(files.length > 0, "content/posts must contain Markdown posts");
   for (const file of files) {
     const source = fs.readFileSync(path.join(postsRoot, file), "utf8");
     assert.doesNotMatch(source, /^date:/m);
@@ -48,11 +48,17 @@ test("build creates a deployable site whose post index contains no article bodie
     assert.equal(fs.existsSync(path.join(output, "content", "site-data.json")), true);
 
     const index = JSON.parse(fs.readFileSync(path.join(output, "content", "posts", "index.json"), "utf8"));
-    assert.equal(index.length, 6);
-    assert.deepEqual(Object.keys(index[0]).sort(), ["date", "excerpt", "id", "source", "tags", "title"]);
-    assert.equal("content" in index[0], false);
-    assert.equal(index[0].source, `content/posts/${index[0].id}.md`);
-    assert.equal(fs.existsSync(path.join(output, index[0].source)), true);
+    const sourceIds = fs.readdirSync(path.join(root, "content", "posts"))
+      .filter((name) => name.endsWith(".md"))
+      .map((name) => name.slice(0, -3));
+    assert.deepEqual(index.map((post) => post.id).sort(), sourceIds.sort());
+    for (const post of index) {
+      assert.deepEqual(Object.keys(post).sort(), ["date", "excerpt", "id", "source", "tags", "title"]);
+      assert.equal("content" in post, false);
+      assert.equal(post.source, `content/posts/${post.id}.md`);
+      assert.equal(fs.readFileSync(path.join(output, post.source), "utf8"),
+        fs.readFileSync(path.join(root, post.source), "utf8").replace(/\r\n?/g, "\n"));
+    }
   } finally {
     fs.rmSync(temporaryRoot, { recursive: true, force: true });
   }

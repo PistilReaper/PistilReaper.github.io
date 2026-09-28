@@ -76,7 +76,7 @@ test("every retained asset category contains only release inputs", () => {
     "audio/licenses": 2,
     brand: 3,
     covers: 4,
-    "post-images": 4,
+    "post-images": 6,
     profile: 1,
     pub: 6,
     "room/about": 1,

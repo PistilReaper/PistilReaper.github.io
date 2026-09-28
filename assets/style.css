@@ -202,6 +202,9 @@ body.night .edge.right .tri{border-left-color:var(--ink)}
 .post-content h1{font-size:30px}.post-content h2{font-size:24px}.post-content h3{font-size:20px}
 .post-content p{margin:0 0 1.05em}.post-content ul,.post-content ol{margin:.25em 0 1.25em;padding-left:1.7em}.post-content li{margin:.38em 0}
 .post-content a{overflow-wrap:anywhere}.post-content strong{color:color-mix(in srgb,var(--ink) 84%,var(--rose))}
+.post-content code{padding:.12em .3em;background:color-mix(in srgb,var(--paper) 82%,transparent);font-family:var(--mono);font-size:.9em}
+.post-content pre{max-width:100%;overflow-x:auto;margin:20px 0;padding:18px 20px;border-left:4px solid var(--gold);background:color-mix(in srgb,var(--paper) 82%,transparent);color:var(--ink);font:14px/1.65 var(--mono);white-space:pre;tab-size:4}
+.post-content pre code{display:block;padding:0;background:none;font:inherit;white-space:inherit}
 .post-content figure{margin:28px auto;text-align:center}.post-content figure img{max-width:100%;margin:auto;border:2px solid var(--ink);background:#f8f1e5;box-shadow:4px 4px 0 rgba(20,16,12,.18)}
 .post-content figcaption{margin-top:8px;color:var(--ink-soft);font:12px var(--mono)}
 .post-math{overflow-x:auto;margin:20px 0;padding:15px 18px;border-left:4px solid var(--gold);background:color-mix(in srgb,var(--paper) 82%,transparent);text-align:center}

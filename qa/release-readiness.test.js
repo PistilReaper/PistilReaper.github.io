@@ -58,9 +58,9 @@ test("Biography and Contact body copy is larger without changing other content",
 });
 
 test("release cache keys advance for every edited frontend asset", () => {
-  assert.match(index, /assets\/style\.css\?v=15/);
+  assert.match(index, /assets\/style\.css\?v=16/);
   assert.doesNotMatch(index, /assets\/data\.js/);
-  assert.match(index, /assets\/app\.js\?v=11/);
+  assert.match(index, /assets\/app\.js\?v=12/);
 });
 
 test("the hidden now-playing cover never requests the current HTML document", () => {

@@ -117,6 +117,8 @@
     const paragraph = [];
     let listType = null;
     let mathLines = null;
+    let codeFence = null;
+    let codeLines = [];
     const flushParagraph = () => {
       if (!paragraph.length) return;
       const content = inlineMarkdown(paragraph.join(" "));
@@ -130,14 +132,31 @@
       output.push(`</${listType}>`);
       listType = null;
     };
+    const flushCode = () => {
+      output.push(`<pre><code>${escapeHtml(codeLines.join("\n") + (codeLines.length ? "\n" : ""))}</code></pre>`);
+      codeFence = null;
+      codeLines = [];
+    };
     markdown.replace(/\r\n?/g, "\n").split("\n").forEach((line) => {
       const trimmed = line.trim();
+      if (codeFence) {
+        const closingFence = line.match(/^ {0,3}(`{3,}|~{3,})\s*$/);
+        if (closingFence && closingFence[1][0] === codeFence[0] && closingFence[1].length >= codeFence.length) flushCode();
+        else codeLines.push(line);
+        return;
+      }
       if (mathLines) {
         if (trimmed.endsWith("$$")) {
           mathLines.push(trimmed.slice(0, -2));
           output.push(`<div class="post-math">${renderMath(mathLines.join("\n").trim(), true)}</div>`);
           mathLines = null;
         } else mathLines.push(line);
+        return;
+      }
+      const openingFence = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+      if (openingFence) {
+        flushParagraph(); closeList();
+        codeFence = openingFence[1];
         return;
       }
       if (trimmed.startsWith("$$")) {
@@ -167,6 +186,7 @@
       paragraph.push(trimmed);
     });
     flushParagraph(); closeList();
+    if (codeFence) flushCode();
     if (mathLines) output.push(`<div class="post-math">${renderMath(mathLines.join("\n").trim(), true)}</div>`);
     return output.join("\n");
   }
